@@ -1,4 +1,4 @@
-# Plane Tickets Project
+# Flight Price Tracker
 
 This project uses Python 3.14 and can be installed using **uv** or traditional **pip**.
 
@@ -7,7 +7,7 @@ This project uses Python 3.14 and can be installed using **uv** or traditional *
 ```bash
 # Clone the project
 git clone https://github.com/khaibom/Flight-Price-Tracker.git
-cd plane_tickets
+cd flight-price-tracker
 ```
 ```bash
 # Create virtual environment using uv
@@ -29,7 +29,7 @@ uv sync
 ```bash
 # Clone the project
 git clone https://github.com/khaibom/Flight-Price-Tracker.git
-cd plane_tickets
+cd flight-price-tracker
 ```
 ```bash
 # Create a standard virtual environment
