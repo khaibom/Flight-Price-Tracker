@@ -1,0 +1,18 @@
+[project]
+name = "flight_price_tracker"
+version = "0.1.0"
+description = """This project is a flight price tracker and analyzer built with Python.
+                 After studying in Germany for three years without returning to Vietnam,
+                 I wanted to help students like me find the cheapest flights home for Tet (Vietnamese Lunar New Year).
+              """
+authors = [
+  { name="Dinh Khai Tran" }
+]
+requires-python = "==3.14.*"
+dependencies = [
+    "beautifulsoup4>=4.14.2",
+    "matplotlib>=3.10.7",
+    "numpy>=2.3.3",
+    "pandas>=2.3.3",
+    "requests>=2.32.5",
+]
