@@ -121,6 +121,7 @@ def visual7(df):
     plt.show()
 
 def visual8(df):
+    df["scrape_datetime"] = df["scrape_datetime"].dt.date
     fig = px.scatter_3d(
         df,
         x="depart_date",
@@ -138,4 +139,4 @@ def visual8(df):
     ))
     fig.show()
 
-visual7(df)
+visual8(df)
