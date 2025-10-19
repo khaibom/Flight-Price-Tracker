@@ -1,0 +1,37 @@
+{
+  "name": "Python env with uv",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+  
+  "features": {
+    "ghcr.io/va-h/devcontainers-features/uv:1": {
+      "shellAutocompletion": true
+    }
+  },
+  
+  "containerEnv": {
+    "UV_LINK_MODE": "copy",
+    "UV_CACHE_DIR": "${containerWorkspaceFolder}/.cache/uv",
+    "PYTHONUNBUFFERED": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  },
+  
+  "postCreateCommand": "uv venv && uv pip install -r requirements.txt",
+  
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-venv,target=${containerWorkspaceFolder}/.venv,type=volume"
+  ]
+}
