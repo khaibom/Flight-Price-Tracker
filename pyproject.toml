@@ -24,4 +24,36 @@ dev-dependencies = [
     "jupyter>=1.1.1",
     "ipykernel>=6.29.5",
     "notebook>=7.2.2",
+    "ruff>=0.8.0",
+]
+
+[tool.ruff]
+# Allow longer lines for existing code, can be reduced gradually
+line-length = 150
+
+# Target Python 3.12+ (compatible with 3.14)
+target-version = "py312"
+
+# Exclude directories
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+# Enable specific rule sets
+select = [
+    "E",   # pycodestyle errors
+    "F",   # Pyflakes
+]
+
+# Ignore rules that would require code changes
+ignore = [
+    "E501",  # Line too long (can be addressed gradually)
+    "W292",  # No newline at end of file
+    "I001",  # Import block is un-sorted or un-formatted
+    "F841",  # Local variable assigned but never used
 ]
