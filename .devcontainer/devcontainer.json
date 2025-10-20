@@ -18,18 +18,30 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "jupyter.kernels.filter": [
+          {
+            "path": "${containerWorkspaceFolder}/.venv/bin/python",
+            "type": "pythonEnvironment"
+          }
+        ]
       },
       "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
         "charliermarsh.ruff",
-        "tamasfe.even-better-toml"
+        "tamasfe.even-better-toml",
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers"
       ]
     }
   },
   
-  "postCreateCommand": "uv venv && uv pip install -r requirements.txt",
+  "postCreateCommand": "uv venv && uv sync --dev",
   
   "mounts": [
     "source=${localWorkspaceFolderBasename}-venv,target=${containerWorkspaceFolder}/.venv,type=volume"
