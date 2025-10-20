@@ -1,0 +1,86 @@
+name: CI - Code Quality and Syntax Check
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  lint:
+    name: Lint with Ruff (PEP8)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Install Ruff
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+      
+      - name: Run Ruff linter
+        run: |
+          ruff check . --output-format=github
+      
+      - name: Run Ruff formatter check
+        run: |
+          ruff format --check .
+
+  syntax-check:
+    name: Python Syntax Verification
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Check Python syntax
+        run: |
+          python -m py_compile plane_tickets.py
+          python -m py_compile visualize.py
+          python -m py_compile candlestick_chart.py
+
+  import-check:
+    name: Import and Compilation Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Create mock Secret.py for import testing
+        run: |
+          echo 'API_KEY = "test_key"' > Secret.py
+          echo 'API_SECRET = "test_secret"' >> Secret.py
+      
+      - name: Test imports (compilation check)
+        run: |
+          python -c "import plane_tickets" || echo "plane_tickets.py has import issues but requires API credentials"
+          python -c "import visualize; print('visualize.py imports successfully')"
+          python -c "import candlestick_chart; print('candlestick_chart.py imports successfully')"

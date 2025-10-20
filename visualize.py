@@ -1,8 +1,8 @@
-import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-import seaborn as sns
+import pandas as pd
 import plotly.express as px
+import seaborn as sns
+from matplotlib.animation import FuncAnimation
 
 cols = ["price", "depart_date", "return_date", "depart_location", "scrape_datetime"]
 df = pd.read_csv("flight_prices.csv", names=cols)
@@ -10,6 +10,7 @@ df = pd.read_csv("flight_prices.csv", names=cols)
 df["depart_date"] = pd.to_datetime(df["depart_date"])
 df["return_date"] = pd.to_datetime(df["return_date"])
 df["scrape_datetime"] = pd.to_datetime(df["scrape_datetime"])
+
 
 def visual1(df):
     for (dep, ret), group in df.groupby(["depart_date", "return_date"]):
@@ -20,6 +21,7 @@ def visual1(df):
         plt.legend(title=f"Price Change Over Time by {dep} -> {ret}")
         plt.tight_layout()
         plt.show()
+
 
 def visual2(df):
     for dep, sub_df in df.groupby("depart_date"):
@@ -33,19 +35,16 @@ def visual2(df):
         plt.tight_layout()
         plt.show()
 
+
 def visual3(df):
-    pivot = df.pivot_table(
-        index="depart_date",
-        columns="return_date",
-        values="price",
-        aggfunc="mean"
-    )
+    pivot = df.pivot_table(index="depart_date", columns="return_date", values="price", aggfunc="mean")
     plt.figure(figsize=(10, 6))
     sns.heatmap(pivot, annot=True, fmt=".0f", cmap="coolwarm")
     plt.title("Average Flight Prices (Depart vs. Return)")
     plt.xlabel("Return Date")
     plt.ylabel("Departure Date")
     plt.show()
+
 
 def visual4(df):
     for loc, group in df.groupby("depart_location"):
@@ -59,6 +58,7 @@ def visual4(df):
         plt.legend(fontsize=8)
         plt.tight_layout()
         plt.show()
+
 
 def visual5(df):
     # Keep only relevant scrape dates if many exist
@@ -75,6 +75,7 @@ def visual5(df):
     plt.tight_layout()
     plt.show()
 
+
 def visual6(df):
     df["depart_ordinal"] = df["depart_date"].map(pd.Timestamp.toordinal)
     df["return_ordinal"] = df["return_date"].map(pd.Timestamp.toordinal)
@@ -82,8 +83,7 @@ def visual6(df):
     fig = plt.figure(figsize=(8, 6))
     ax = fig.add_subplot(111, projection="3d")
 
-    ax.scatter(df["depart_ordinal"], df["return_ordinal"], df["price"],
-               c=df["price"], cmap="viridis", s=40)
+    ax.scatter(df["depart_ordinal"], df["return_ordinal"], df["price"], c=df["price"], cmap="viridis", s=40)
 
     ax.set_xlabel("Departure Date")
     ax.set_ylabel("Return Date")
@@ -100,6 +100,7 @@ def visual6(df):
     plt.title("3D View of Flight Prices")
     plt.tight_layout()
     plt.show()
+
 
 def visual7(df):
     df["depart_date_str"] = df["depart_date"].dt.strftime("%m-%d")
@@ -120,6 +121,7 @@ def visual7(df):
     ani = FuncAnimation(fig, update, frames=scrape_datetimes, repeat=False)
     plt.show()
 
+
 def visual8(df):
     df["scrape_datetime"] = df["scrape_datetime"].dt.date
     fig = px.scatter_3d(
@@ -130,13 +132,10 @@ def visual8(df):
         color="depart_location",
         size="price",
         animation_frame="scrape_datetime",
-        title="Flight Prices Over Time"
+        title="Flight Prices Over Time",
     )
-    fig.update_layout(scene=dict(
-        xaxis_title='Departure Date',
-        yaxis_title='Return Date',
-        zaxis_title='Price (€)'
-    ))
+    fig.update_layout(scene=dict(xaxis_title="Departure Date", yaxis_title="Return Date", zaxis_title="Price (€)"))
     fig.show()
+
 
 visual8(df)
