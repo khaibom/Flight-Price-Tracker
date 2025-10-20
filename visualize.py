@@ -1,8 +1,8 @@
-import matplotlib.pyplot as plt
 import pandas as pd
-import plotly.express as px
-import seaborn as sns
+import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import seaborn as sns
+import plotly.express as px
 
 cols = ["price", "depart_date", "return_date", "depart_location", "scrape_datetime"]
 df = pd.read_csv("flight_prices.csv", names=cols)
