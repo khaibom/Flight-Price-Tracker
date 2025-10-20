@@ -5,7 +5,7 @@ import seaborn as sns
 import plotly.express as px
 
 cols = ["price", "depart_date", "return_date", "depart_location", "scrape_datetime"]
-df = pd.read_csv("flight_prices.csv", names=cols)
+df = pd.read_csv("../../flight_prices.csv", names=cols)
 
 df["depart_date"] = pd.to_datetime(df["depart_date"])
 df["return_date"] = pd.to_datetime(df["return_date"])

@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 
 # Load CSV
 cols = ["price", "depart_date", "return_date", "depart_location", "scrape_datetime"]
-df = pd.read_csv("flight_prices.csv", names=cols, parse_dates=["depart_date","return_date","scrape_datetime"])
+df = pd.read_csv("../../flight_prices.csv", names=cols, parse_dates=["depart_date", "return_date", "scrape_datetime"])
 
 # Create a scrape date column (date only)
 df["scrape_date"] = df["scrape_datetime"].dt.date
