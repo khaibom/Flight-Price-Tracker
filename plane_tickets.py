@@ -1,8 +1,9 @@
-from Secret import API_SECRET, API_KEY
-from amadeus import Client, ResponseError
-import pandas as pd
 import time
 from datetime import datetime
+
+import pandas as pd
+from amadeus import Client, ResponseError
+from Secret import API_KEY, API_SECRET
 
 GERMANY = ["FRA", "DUS"]
 VIETNAM = ["HAN"]
