@@ -8,15 +8,19 @@ description = """This project is a flight price tracker and analyzer built with 
 authors = [
   { name="Dinh Khai Tran" }
 ]
-requires-python = "==3.14.*"
+requires-python = "==3.12.*"
 dependencies = [
     "amadeus>=12.0.0",
+    "dagster==1.11.5",
+    "dagster-shared==1.11.5",
+    "dagster-webserver==1.11.5",
     "matplotlib>=3.10.7",
     "numpy>=2.3.3",
     "pandas>=2.3.3",
     "plotly>=6.3.1",
     "requests>=2.32.5",
     "seaborn>=0.13.2",
+    "setuptools>=80.9.0",
 ]
 
 [tool.uv]
@@ -57,3 +61,12 @@ ignore = [
     "I001",  # Import block is un-sorted or un-formatted
     "F841",  # Local variable assigned but never used
 ]
+
+
+[tool.dagster]
+module_name = "dagster_project"
+code_location_name = "dagster_project"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
