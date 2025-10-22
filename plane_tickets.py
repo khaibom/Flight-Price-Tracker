@@ -6,8 +6,8 @@ from datetime import datetime
 
 GERMANY = ["FRA", "DUS"]
 VIETNAM = ["HAN"]
-DEPARTURE_RANGE = [f"2026-02-{15+x}" for x in range(5)] #start 15/02/2026 - 19/02/2026
-RETURN_RANGE = [f"2026-03-{10+x}" for x in range(12)] #return 10/03/2026 - 21/03/2026
+DEPARTURE_RANGE = [f"2026-02-{15+x}" for x in range(4)] #start 15/02/2026 - 19/02/2026
+RETURN_RANGE = [f"2026-03-{10+x}" for x in range(7)] #return 10/03/2026 - 21/03/2026
 
 amadeus = Client(
     client_id=API_KEY,
