@@ -93,7 +93,7 @@ def extract_flight_offers(context) -> pandas.DataFrame:
     retry_policy=RetryPolicy(max_retries=1, delay=10.0),
 )
 def load_flight_offers(context, extract_flight_offers):
-    df = extract_flight_offers()
+    df = extract_flight_offers
     df.to_csv("flight_prices.csv", mode="a", index=False, header=False)
     context.log.info("Data saved to flight_prices.csv")
     context.log.info(f'The min. price of df is: {df["price"].min()}')

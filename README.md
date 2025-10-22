@@ -1,6 +1,6 @@
 # Flight Price Tracker
 
-This project uses Python 3.14 and can be installed using **uv** or traditional **pip**.
+This project uses Python 3.12 and can be installed using **uv** or traditional **pip**.
 
 ## Using uv (recommended)
 
