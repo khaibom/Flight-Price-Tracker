@@ -13,7 +13,7 @@ departure_end = departure_start + timedelta(days=4)
 return_start = datetime.strptime("2026-03-10", "%Y-%m-%d")
 return_end = return_start + timedelta(days=11)
 
-date_config_schema = Shape({
+config_schema = Shape({
     'departure_start_date': Field(str, default_value=departure_start.strftime("%Y-%m-%d"), description='in "YYYY-MM-DD"'),
     'departure_end_date': Field(str, default_value=departure_end.strftime("%Y-%m-%d"), description='in "YYYY-MM-DD"'),
     'return_start_date': Field(str, default_value=return_start.strftime("%Y-%m-%d"), description='in "YYYY-MM-DD"'),
@@ -27,7 +27,7 @@ date_config_schema = Shape({
     group_name="flights",
     compute_kind="python",
     retry_policy=RetryPolicy(max_retries=1, delay=10.0),
-    config_schema=date_config_schema,
+    config_schema=config_schema,
 )
 def extract_flight_offers(context) -> pandas.DataFrame:
     config = context.op_config
