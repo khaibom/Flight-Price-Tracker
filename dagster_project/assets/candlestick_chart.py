@@ -26,7 +26,7 @@ viz_config_schema = Shape({
     config_schema=viz_config_schema,
     #deps=[AssetKey("load_flight_offers")],
 )
-def candlestick_chart(context) -> Output[str]:
+def candlestick_chart(context):
     config = context.op_config
     dep_date_str = config.get("departure_date", departure_time.strftime("%Y-%m-%d"))
     ret_date_str = config.get("return_date", return_time.strftime("%Y-%m-%d"))
