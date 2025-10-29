@@ -48,7 +48,7 @@ def _flight_offers_search_worker(
         if max_retries > 0:
             # congestion control
             time.sleep(2 ** (MAX_NUMBER_RETRIES - max_retries))
-            ctx.log.info(f"retrying... {departure_loc}->{arrival_loc} on {departure_loc}->{arrival_loc} on {departure_date} - {return_date}: {max_retries} attempts left")
+            ctx.log.info(f"retrying... {departure_loc}->{arrival_loc} on {departure_date} - {return_date}: {max_retries} attempts left")
             return _flight_offers_search_worker(
                 ctx,
                 search_client,
