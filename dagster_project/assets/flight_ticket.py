@@ -12,7 +12,7 @@ departure_end = departure_start + timedelta(days=4)
 return_start = datetime.strptime("2026-03-10", "%Y-%m-%d")
 return_end = return_start + timedelta(days=11)
 
-date_config_schema = Shape({
+config_schema = Shape({
     'departure_start_date': Field(str, default_value=departure_start.strftime("%Y-%m-%d"), description='in "YYYY-MM-DD"'),
     'departure_end_date': Field(str, default_value=departure_end.strftime("%Y-%m-%d"), description='in "YYYY-MM-DD"'),
     'return_start_date': Field(str, default_value=return_start.strftime("%Y-%m-%d"), description='in "YYYY-MM-DD"'),
@@ -26,7 +26,7 @@ date_config_schema = Shape({
     group_name="flights",
     compute_kind="python",
     retry_policy=RetryPolicy(max_retries=1, delay=10.0),
-    config_schema=date_config_schema,
+    config_schema=config_schema,
 )
 def extract_flight_offers(context) -> pandas.DataFrame:
     config = context.op_config
@@ -59,6 +59,14 @@ def extract_flight_offers(context) -> pandas.DataFrame:
     )
     return df
 
+@asset(
+    name="transform_flight_offers",
+    group_name="flights",
+    compute_kind="python",
+    retry_policy=RetryPolicy(max_retries=1, delay=10.0),
+)
+def transform_flight_offers(extract_flight_offers) -> pandas.DataFrame:
+    return extract_flight_offers
 
 @asset(
     name="load_flight_offers",
@@ -66,8 +74,8 @@ def extract_flight_offers(context) -> pandas.DataFrame:
     compute_kind="python",
     retry_policy=RetryPolicy(max_retries=1, delay=10.0),
 )
-def load_flight_offers(context, extract_flight_offers):
-    df = extract_flight_offers
+def load_flight_offers(context, transform_flight_offers):
+    df = transform_flight_offers
     df.to_csv("flight_prices.csv", mode="a", index=False, header=False)
     context.log.info("Data saved to flight_prices.csv")
     context.log.info(f'The min. price of df is: {df["price"].min()}')
