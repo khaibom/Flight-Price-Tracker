@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 import plotly.graph_objects as go
-from dagster import Shape, Field, asset, RetryPolicy, AssetKey, MetadataValue, Output
+from dagster import Shape, Field, asset, RetryPolicy, MetadataValue, Output
 
 departure_location = "DUS"
 return_location = "HAN"
